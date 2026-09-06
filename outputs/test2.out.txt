@@ -1,0 +1,14 @@
+Request: I want a chill 8-song playlist of calm, low-energy acoustic songs for studying.
+
+Playlist:
+**Filters applied:** energy ≤ 0.30, acousticness ≥ 0.85, danceability ≤ 0.40; duplicates removed on track + artist; top‑popularity tracks selected.
+
+**Chill Study Playlist (8 songs)**  
+1. lovely (with Khalid) – Billie Eilish (R&B, 2018, energy 0.30, acousticness 0.93)  
+2. You Are The Reason – Calum Scott (R&B, 2018, energy 0.24, acousticness 0.92)  
+3. listen before i go – Billie Eilish (R&B, 2019, energy 0.06, acousticness 0.94)  
+4. Norman fucking Rockwell – Lana Del Rey (R&B, 2019, energy 0.22, acousticness 0.97)  
+5. Hallelujah – Jeff Buckley (Rock, 1994, energy 0.14, acousticness 0.93)  
+6. Mad World (Feat. Michael Andrews) – Gary Jules (Pop, 2002, energy 0.06, acousticness 0.98)  
+7. Moon River – Frank Ocean (R&B, 2018, energy 0.12, acousticness 0.88)  
+8. Mystery of Love – Sufjan Stevens (R&B, 2017, energy 0.27, acousticness 0.94)

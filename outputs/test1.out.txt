@@ -1,0 +1,15 @@
+Request: Build me a 10-song playlist of high-energy pop songs from the 2010s for a workout.
+
+Playlist:
+**Filters applied:** pop genre ∧ energy ≥ 0.75 ∧ release year 2010‑2019, de‑duplicated on track + artist, then took the 10 most popular tracks.  
+
+1. Blinding Lights – The Weeknd (pop, 2019, energy 0.80, danceability 0.51)  
+2. Circles – Post Malone (pop, 2019, energy 0.76, danceability 0.69)  
+3. Don't Start Now – Dua Lipa (pop, 2019, energy 0.79, danceability 0.79)  
+4. Ride It – Regard (pop, 2019, energy 0.75, danceability 0.88)  
+5. Heartless – The Weeknd (pop, 2019, energy 0.75, danceability 0.53)  
+6. China – Anuel AA (pop, 2019, energy 0.81, danceability 0.79)  
+7. Adore You – Harry Styles (pop, 2019, energy 0.77, danceability 0.68)  
+8. Que Tire Pa Lante – Daddy Yankee (pop, 2019, energy 0.90, danceability 0.66)  
+9. Watermelon Sugar – Harry Styles (pop, 2019, energy 0.82, danceability 0.55)  
+10. Adicto (with Anuel AA & Ozuna) – Tainy (pop, 2019, energy 0.84, danceability 0.73)
