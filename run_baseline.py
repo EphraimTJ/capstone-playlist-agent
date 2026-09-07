@@ -24,12 +24,14 @@ import io
 import json
 import os
 import sys
+import time
 import urllib.request
 
 import pandas as pd
 
 try:
     from openai import OpenAI
+    from openai import RateLimitError
 except ImportError:
     sys.exit("openai package not installed. Run: py -3.13 -m pip install -r requirements.txt")
 
@@ -112,15 +114,31 @@ def build_system_prompt(df: pd.DataFrame) -> str:
     )
 
 
-def build_playlist(request: str, df: pd.DataFrame, model: str) -> str:
+def create_with_retry(client, retries=4, wait=25, **kwargs):
+    """Call the chat API, retrying with a pause when the provider rate-limits us.
+    Free tiers cap tokens per minute, so waiting for the window to reset and
+    retrying is usually enough to get through."""
+    for attempt in range(1, retries + 1):
+        try:
+            return client.chat.completions.create(**kwargs)
+        except RateLimitError:
+            if attempt == retries:
+                raise
+            print(f"  [rate limited] waiting {wait}s, then retrying "
+                  f"({attempt}/{retries - 1})...", file=sys.stderr)
+            time.sleep(wait)
+
+
+def build_playlist(request: str, df: pd.DataFrame, model: str, max_tokens: int) -> str:
     client = make_client()
     messages = [
         {"role": "system", "content": build_system_prompt(df)},
         {"role": "user", "content": request},
     ]
     for step in range(1, MAX_STEPS + 1):
-        response = client.chat.completions.create(
-            model=model, messages=messages, tools=[RUN_PANDAS_TOOL]
+        response = create_with_retry(
+            client, model=model, messages=messages,
+            tools=[RUN_PANDAS_TOOL], max_tokens=max_tokens,
         )
         msg = response.choices[0].message
         messages.append(msg)
@@ -149,9 +167,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="NL playlist-builder agent (baseline).")
     parser.add_argument("--input", required=True, help="Text file containing the playlist request.")
     parser.add_argument("--data", default="examples/spotify_songs.csv", help="CSV dataset path.")
-    parser.add_argument("--model", default=os.environ.get("BASELINE_MODEL", "gpt-4o-mini"),
-                        help="Model name. Default gpt-4o-mini; for Groq use e.g. "
-                             "openai/gpt-oss-120b (or set BASELINE_MODEL).")
+    parser.add_argument("--model", default=os.environ.get("BASELINE_MODEL", "qwen/qwen3.8-27b"),
+                        help="Model name. Default qwen/qwen3.8-27b (Groq, light + "
+                             "reliable tool calls). For OpenAI use --model gpt-4o-mini. "
+                             "Override the default with BASELINE_MODEL.")
+    parser.add_argument("--max-tokens", type=int, default=900,
+                        help="Cap on output tokens per model call. Default 900 keeps "
+                             "each request under Groq free-tier per-minute limits.")
     args = parser.parse_args()
 
     if not os.environ.get("OPENAI_API_KEY"):
@@ -166,7 +188,7 @@ def main() -> None:
     print(f"Dataset: {args.data} ({len(df):,} tracks)")
     print(f"Model  : {args.model}\n")
 
-    playlist = build_playlist(request, df, args.model)
+    playlist = build_playlist(request, df, args.model, args.max_tokens)
 
     print("\n=== PLAYLIST ===")
     print(playlist)

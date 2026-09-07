@@ -1,14 +1,19 @@
 Request: I want a chill 8-song playlist of calm, low-energy acoustic songs for studying.
 
 Playlist:
-**Filters applied:** energy ≤ 0.30, acousticness ≥ 0.85, danceability ≤ 0.40; duplicates removed on track + artist; top‑popularity tracks selected.
+I have enough to build the playlist. Selecting 8 calm, low-energy acoustic tracks with varied artists.
 
-**Chill Study Playlist (8 songs)**  
-1. lovely (with Khalid) – Billie Eilish (R&B, 2018, energy 0.30, acousticness 0.93)  
-2. You Are The Reason – Calum Scott (R&B, 2018, energy 0.24, acousticness 0.92)  
-3. listen before i go – Billie Eilish (R&B, 2019, energy 0.06, acousticness 0.94)  
-4. Norman fucking Rockwell – Lana Del Rey (R&B, 2019, energy 0.22, acousticness 0.97)  
-5. Hallelujah – Jeff Buckley (Rock, 1994, energy 0.14, acousticness 0.93)  
-6. Mad World (Feat. Michael Andrews) – Gary Jules (Pop, 2002, energy 0.06, acousticness 0.98)  
-7. Moon River – Frank Ocean (R&B, 2018, energy 0.12, acousticness 0.88)  
-8. Mystery of Love – Sufjan Stevens (R&B, 2017, energy 0.27, acousticness 0.94)
+**Summary of filters:** `acousticness ≥ 0.7`, `energy ≤ 0.4`, `valence < 0.5`, `instrumentalness < 0.7`, de-duplicated by track_id, prioritizing popular, calm, mostly lyrical songs suitable for studying; artists diversified where possible.
+
+**Chill Study Playlist:**
+
+1. everything i wanted - Billie Eilish (pop, 2019, low energy 0.23, soft acoustic)
+2. lovely (with Khalid) - Billie Eilish (r&b, 2018, acoustic, gentle mood)
+3. Bruises - Lewis Capaldi (pop, 2019, high acousticness 0.95, low energy)
+4. All of Me - John Legend (pop, 2013, warm ballad, calm acoustic)
+5. July - Noah Cyrus (pop, 2019, low energy 0.19, soothing)
+6. you were good to me - Jeremy Zucker (r&b, 2019, acoustic 0.91, mellow, 102 BPM)
+7. You Are The Reason - Calum Scott (r&b, 2018, acoustic 0.92, gentle)
+8. Falling - Harry Styles (r&b, 2019, acoustic 0.84, calm, 110 BPM)
+
+*Note: This mixes two Billie Eilish tracks for variety; if you'd prefer strictly one song per artist, swap in "Say Something – A Great Big World (pop, 2014, acoustic) instead.*

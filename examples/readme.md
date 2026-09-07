@@ -54,15 +54,19 @@ script **auto-downloads it on first run** — no Kaggle account or API token nee
 ## 4. Run the baseline
 
 ```bash
-py -3.13 run_baseline.py --input examples/test1.txt --model openai/gpt-oss-120b
-py -3.13 run_baseline.py --input examples/test2.txt --model openai/gpt-oss-120b
+py -3.13 run_baseline.py --input examples/test1.txt
+py -3.13 run_baseline.py --input examples/test2.txt
 ```
+
+The default model is `qwen/qwen3.8-27b` on Groq — a light model with generous
+free-tier limits that handles tool calls reliably, so no `--model` flag is
+needed. Pass `--model` only to override it.
 
 | Flag       | Meaning                                   | Default                      |
 |------------|-------------------------------------------|------------------------------|
 | `--input`  | Text file containing the playlist request | (required)                   |
 | `--data`   | CSV dataset                               | `examples/spotify_songs.csv` |
-| `--model`  | Model name                                | `gpt-4o-mini`                |
+| `--model`  | Model name                                | `qwen/qwen3.8-27b`           |
 
 ## 5. Where things live
 
@@ -72,6 +76,12 @@ py -3.13 run_baseline.py --input examples/test2.txt --model openai/gpt-oss-120b
 
 ## Known setup limitations
 
-- The chosen model must support tool/function calling. On Groq's free tier,
-  `openai/gpt-oss-120b` and `openai/gpt-oss-20b` work; audio/guard models do not.
-- Free tiers are rate-limited; if you hit a 429, wait briefly and re-run.
+- The chosen model must support tool (function) calling. On Groq's free tier,
+  `qwen/qwen3.8-27b` (default) and `openai/gpt-oss-120b` both work well. The
+  smaller `openai/gpt-oss-20b` is not recommended: it often returns malformed
+  tool-call arguments (`tool_use_failed`).
+- Groq's free tier limits output tokens per minute (as low as 1000 for the
+  default model). The baseline caps output at `--max-tokens 900` per call and
+  automatically retries after a short wait if it still hits a 429, so runs
+  usually recover on their own. If you keep hitting limits, wait a minute and
+  run again, or pass a smaller `--max-tokens`.

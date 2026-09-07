@@ -19,8 +19,11 @@ py -3.13 -m pip install -r requirements.txt
 $env:OPENAI_API_KEY  = "gsk_your_groq_key_here"
 $env:OPENAI_BASE_URL = "https://api.groq.com/openai/v1"
 
-py -3.13 run_baseline.py --input examples/test1.txt --model openai/gpt-oss-120b
+py -3.13 run_baseline.py --input examples/test1.txt
 ```
+
+The default model is `qwen/qwen3.8-27b` (Groq) — light, with generous free-tier
+limits and reliable tool-calling — so no `--model` flag is needed.
 
 Full setup (Command Prompt / bash variants, OpenAI instead of Groq, etc.) is in
 [`examples/readme.md`](examples/readme.md).
